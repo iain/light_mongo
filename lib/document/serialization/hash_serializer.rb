@@ -44,7 +44,7 @@ module LightMongo
             hashed_object['_class_name'] = object_to_serialize.class.name if current_depth > 0
             
             object_to_serialize.instance_variables.each do |attribute_name|
-              new_hash_key = attribute_name.sub(/^@/, '')
+              new_hash_key = attribute_name.to_s.sub(/^@/, '')
               nested_object = object_to_serialize.instance_variable_get(attribute_name)
               hashed_object[new_hash_key] = Serializer.serialize(nested_object, current_depth + 1)
             end
